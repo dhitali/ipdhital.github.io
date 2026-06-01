@@ -4835,6 +4835,111 @@
     .calc-card { break-inside: avoid; }
   }
 
+  /* ════════════════════════════════════════════════════════════
+     STATUTORY DISCLAIMER MODAL  (#calc-disclaimer)
+     Intercepts the live cadastral / valuation instruments.
+  ════════════════════════════════════════════════════════════ */
+  #calc-disclaimer {
+    position: fixed; inset: 0; z-index: 9000;
+    display: none; align-items: center; justify-content: center;
+    padding: 1.4rem;
+    background: rgba(8, 11, 16, 0.74);
+    backdrop-filter: blur(7px); -webkit-backdrop-filter: blur(7px);
+    opacity: 0; transition: opacity 0.28s ease;
+  }
+  #calc-disclaimer.open { display: flex; opacity: 1; }
+  .cd-card {
+    position: relative; max-width: 640px; width: 100%;
+    max-height: 88vh; overflow-y: auto;
+    background: linear-gradient(180deg, var(--paper-cream) 0%, var(--paper) 100%);
+    border: 1px solid var(--paper-deep);
+    border-top: 4px solid var(--crimson);
+    border-radius: 5px;
+    box-shadow: 0 38px 90px rgba(8,11,16,0.55), 0 0 0 1px rgba(184,130,30,0.18);
+    padding: 2.1rem 2.2rem 1.8rem;
+    transform: translateY(14px) scale(0.985);
+    transition: transform 0.3s cubic-bezier(.2,.8,.2,1);
+  }
+  #calc-disclaimer.open .cd-card { transform: translateY(0) scale(1); }
+  .cd-seal { display: flex; align-items: center; gap: 0.7rem; margin-bottom: 0.9rem; }
+  .cd-seal svg { width: 38px; height: 38px; color: var(--crimson); flex-shrink: 0; }
+  .cd-eyebrow {
+    font-family: 'JetBrains Mono', monospace; font-size: 0.6rem;
+    letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold); font-weight: 600;
+  }
+  .cd-title {
+    font-family: 'Tiro Devanagari Sanskrit', serif;
+    font-size: 1.5rem; line-height: 1.3; color: var(--crimson-deep);
+    margin-bottom: 0.85rem; font-weight: 600;
+  }
+  .cd-body {
+    font-family: 'Tiro Devanagari Sanskrit', 'Inter', serif;
+    font-size: 0.98rem; line-height: 1.85; color: var(--ink-soft);
+  }
+  .cd-body p { margin-bottom: 0.85rem; }
+  .cd-warn {
+    margin: 1rem 0 1.2rem; padding: 0.8rem 1rem;
+    background: rgba(158,39,39,0.07); border-left: 3px solid var(--crimson);
+    border-radius: 3px; font-size: 0.92rem; color: var(--crimson-deep);
+  }
+  .cd-actions {
+    display: flex; gap: 0.7rem; flex-wrap: wrap;
+    margin-top: 0.5rem; padding-top: 1.1rem;
+    border-top: 1px solid var(--paper-deep); font-family: 'Inter', sans-serif;
+  }
+  .cd-btn {
+    flex: 1 1 auto; min-width: 150px;
+    font-family: 'JetBrains Mono', monospace; font-size: 0.68rem;
+    letter-spacing: 0.14em; text-transform: uppercase; font-weight: 600;
+    padding: 0.85rem 1.1rem; border-radius: 3px; cursor: pointer;
+    transition: all 0.18s; border: 1px solid;
+  }
+  .cd-btn-accept { background: var(--crimson); color: var(--paper-cream); border-color: var(--crimson); }
+  .cd-btn-accept:hover { background: var(--crimson-deep); border-color: var(--crimson-deep); transform: translateY(-1px); box-shadow: 0 7px 18px rgba(158,39,39,0.32); }
+  .cd-btn-cancel { background: transparent; color: var(--ink-soft); border-color: var(--paper-deep); }
+  .cd-btn-cancel:hover { background: rgba(20,32,46,0.05); border-color: var(--ink-soft); }
+  .cd-close {
+    position: absolute; top: 0.9rem; right: 1rem;
+    background: none; border: none; cursor: pointer;
+    font-size: 1.3rem; line-height: 1; color: var(--ink-soft); opacity: 0.6;
+  }
+  .cd-close:hover { opacity: 1; color: var(--crimson); }
+  @media (max-width: 560px) {
+    .cd-card { padding: 1.6rem 1.3rem 1.4rem; }
+    .cd-title { font-size: 1.25rem; }
+    .cd-body { font-size: 0.92rem; }
+  }
+
+  /* ── Calculator inline visualization panel (dark console) ── */
+  #toe-app .calc-viz {
+    margin-top: 1rem; padding: 0.9rem;
+    background: rgba(255,255,255,0.03) !important;
+    border: 1px solid rgba(216,166,76,0.22); border-radius: 4px;
+  }
+  #toe-app .calc-viz-title {
+    font-family: 'JetBrains Mono', monospace; font-size: 0.6rem;
+    letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--gold-soft); margin-bottom: 0.5rem; opacity: 0.9;
+  }
+  #toe-app .calc-viz svg { width: 100%; height: auto; display: block; }
+  #toe-app .calc-viz svg text { font-family: 'JetBrains Mono', monospace; }
+  #toe-app .result-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 0.6rem; margin-top: 0.6rem;
+  }
+  #toe-app .result-stat {
+    padding: 0.55rem 0.7rem; background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(216,166,76,0.18); border-radius: 3px;
+  }
+  #toe-app .result-stat .rs-label {
+    font-family: 'JetBrains Mono', monospace; font-size: 0.55rem;
+    letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold-soft); opacity: 0.85;
+  }
+  #toe-app .result-stat .rs-val {
+    font-family: 'JetBrains Mono', monospace; font-size: 0.95rem;
+    color: #f1ece0; margin-top: 0.2rem; font-weight: 600; word-break: break-all;
+  }
+  #toe-app .table-scroll { overflow-x: auto; margin-top: 0.7rem; }
 
 </style>
 
@@ -5796,12 +5901,12 @@
     <!-- LAB STATS ROW -->
     <div class="lab-stat-row reveal">
       <div class="lab-stat">
-        <div class="lab-stat-val">04</div>
+        <div class="lab-stat-val">07</div>
         <div class="lab-stat-label">Live Instruments</div>
       </div>
       <div class="lab-stat">
-        <div class="lab-stat-val">18+</div>
-        <div class="lab-stat-label">In Development</div>
+        <div class="lab-stat-val">50+</div>
+        <div class="lab-stat-label">Calculator Modules</div>
       </div>
       <div class="lab-stat">
         <div class="lab-stat-val">32</div>
@@ -5831,7 +5936,7 @@
       <div class="calc-grid">
 
         <!-- THAILI RAKAM -->
-        <a href="thaili-calculator.html" class="calc-card" style="text-decoration:none;">
+        <a href="https://thailical.netlify.app/" target="_blank" rel="noopener" class="calc-card" style="text-decoration:none;" onclick="openCalcDisclaimer(event, 'https://thailical.netlify.app/')">
           <div class="calc-card-top">
             <div class="calc-num">I</div>
             <span class="calc-status live">Live</span>
@@ -5863,7 +5968,7 @@
         </a>
 
         <!-- REGISTRATION TAX -->
-        <a href="#regtax" target="_blank" rel="noopener" class="calc-card" style="text-decoration:none;">
+        <a href="https://registrationcal.netlify.app/" target="_blank" rel="noopener" class="calc-card" style="text-decoration:none;" onclick="openCalcDisclaimer(event, 'https://registrationcal.netlify.app/')">
           <div class="calc-card-top">
             <div class="calc-num">II</div>
             <span class="calc-status live">Live</span>
@@ -5898,7 +6003,7 @@
         </a>
 
         <!-- CAPITAL GAINS TAX -->
-        <a href="#capgain" target="_blank" rel="noopener" class="calc-card" style="text-decoration:none;">
+        <a href="https://capitalgaintax1.netlify.app/" target="_blank" rel="noopener" class="calc-card" style="text-decoration:none;" onclick="openCalcDisclaimer(event, 'https://capitalgaintax1.netlify.app/')">
           <div class="calc-card-top">
             <div class="calc-num">III</div>
             <span class="calc-status live">Live</span>
@@ -5934,8 +6039,8 @@
         </a>
 
         <!-- AREA BY COORDINATE METHOD -->
-        <div class="calc-card coming">
-          <div class="calc-card-top"><div class="calc-num">IV</div><span class="calc-status coming">In Development</span></div>
+        <div class="calc-card" style="cursor:pointer;" onclick="openCalcModule('areacoord')">
+          <div class="calc-card-top"><div class="calc-num">IV</div><span class="calc-status live">Live</span></div>
           <div class="calc-glyph">
             <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
               <polygon points="12,46 28,16 50,22 54,40 38,52" fill="none" stroke="currentColor" stroke-width="1.4"/>
@@ -5956,12 +6061,16 @@
           <p class="calc-desc">
             Computes parcel area directly from corner coordinates using the Surveyor's formula:
             <span class="calc-formula">A = ½ |Σ(xᵢ·yᵢ₊₁ − xᵢ₊₁·yᵢ)|</span>.
-            Outputs in m², ropani-aana-paisa-daam, and bigha-katha. Closure check on coordinate set.
+            Outputs in m², ropani-aana-paisa-daam, and bigha-kattha-dhur. Scaled parcel plot included.
           </p>
           <div class="calc-tags">
             <span class="calc-tag">Surveyor's Formula</span>
             <span class="calc-tag">Shoelace</span>
             <span class="calc-tag">m² · Ropani</span>
+          </div>
+          <div class="calc-cta">
+            <span>Open Instrument</span>
+            <svg viewBox="0 0 16 8" xmlns="http://www.w3.org/2000/svg"><line x1="0" y1="4" x2="14" y2="4" stroke="currentColor" stroke-width="1"/><polyline points="10,1 14,4 10,7" fill="none" stroke="currentColor" stroke-width="1"/></svg>
           </div>
         </div>
 
@@ -5971,8 +6080,8 @@
     <!-- SURVEYING PANE -->
     <div class="calc-pane" data-pane="surveying">
       <div class="calc-grid">
-        <div class="calc-card coming">
-          <div class="calc-card-top"><div class="calc-num">IV</div><span class="calc-status coming">In Development</span></div>
+        <div class="calc-card" style="cursor:pointer;" onclick="openCalcModule('traverseadj')">
+          <div class="calc-card-top"><div class="calc-num">IV</div><span class="calc-status live">Live</span></div>
           <div class="calc-glyph">
             <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
               <polygon points="14,14 50,18 46,50 18,46" fill="none" stroke="currentColor" stroke-width="1.4" stroke-dasharray="2,2"/>
@@ -5984,17 +6093,71 @@
             </svg>
           </div>
           <h3 class="calc-title">Traverse Adjustment</h3>
-          <div class="calc-nepali">परिचालन समायोजन</div>
-          <p class="calc-desc">Closed and open traverse computation with Bowditch (compass) and Transit rules, including angular misclosure check, coordinate adjustment, and area calculation by DMD method.</p>
+          <div class="calc-nepali">परिचालन समायोजन (गोन)</div>
+          <p class="calc-desc">Full closed/link traverse in the <strong>gon</strong> system — angular misclosure balanced by equal distribution, linear closure adjusted by the Bowditch rule, plus a parallel trigonometric-height reduction from zenith angles. Closing error, perimeter and relative accuracy with a plotted station polygon.</p>
           <div class="calc-tags">
             <span class="calc-tag">Bowditch</span>
-            <span class="calc-tag">Transit</span>
-            <span class="calc-tag">DMD Area</span>
+            <span class="calc-tag">Gon</span>
+            <span class="calc-tag">Trig Height</span>
+          </div>
+          <div class="calc-cta">
+            <span>Open Instrument</span>
+            <svg viewBox="0 0 16 8" xmlns="http://www.w3.org/2000/svg"><line x1="0" y1="4" x2="14" y2="4" stroke="currentColor" stroke-width="1"/><polyline points="10,1 14,4 10,7" fill="none" stroke="currentColor" stroke-width="1"/></svg>
+          </div>
+        </div>
+
+        <div class="calc-card" style="cursor:pointer;" onclick="openCalcModule('coordtrans2')">
+          <div class="calc-card-top"><div class="calc-num">V</div><span class="calc-status live">Live</span></div>
+          <div class="calc-glyph">
+            <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+              <g stroke="currentColor" fill="none" stroke-width="1.2" stroke-dasharray="2,2" opacity="0.55">
+                <polygon points="12,40 24,18 40,26"/>
+              </g>
+              <g stroke="currentColor" fill="none" stroke-width="1.4">
+                <polygon points="30,46 42,24 56,34"/>
+              </g>
+              <path d="M24,30 Q33,26 40,32" stroke="currentColor" stroke-width="0.8" fill="none" marker-end="url(#a)"/>
+              <circle cx="12" cy="40" r="1.8" fill="currentColor"/><circle cx="56" cy="34" r="1.8" fill="currentColor"/>
+              <text x="42" y="20" font-family="Cormorant Garamond" font-style="italic" font-size="8" fill="currentColor">θ</text>
+            </svg>
+          </div>
+          <h3 class="calc-title">2-Point Coordinate Transform</h3>
+          <div class="calc-nepali">निर्देशांक रूपान्तरण (गोन)</div>
+          <p class="calc-desc">Rotates and translates an entire point cloud from a local/old datum to a known datum using two common control points (Station + RO). Computes station bearings and rotation angle in <strong>gon</strong>, then transforms every detail point — the post-resection setup transformation.</p>
+          <div class="calc-tags">
+            <span class="calc-tag">Rotation θ</span>
+            <span class="calc-tag">Gon</span>
+            <span class="calc-tag">Bulk Points</span>
+          </div>
+          <div class="calc-cta">
+            <span>Open Instrument</span>
+            <svg viewBox="0 0 16 8" xmlns="http://www.w3.org/2000/svg"><line x1="0" y1="4" x2="14" y2="4" stroke="currentColor" stroke-width="1"/><polyline points="10,1 14,4 10,7" fill="none" stroke="currentColor" stroke-width="1"/></svg>
           </div>
         </div>
 
         <div class="calc-card coming">
-          <div class="calc-card-top"><div class="calc-num">V</div><span class="calc-status coming">In Development</span></div>
+          <div class="calc-card-top"><div class="calc-num">VI</div><span class="calc-status coming">In Development</span></div>
+          <div class="calc-glyph">
+            <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+              <polygon points="14,14 50,18 46,50 18,46" fill="none" stroke="currentColor" stroke-width="1.4" stroke-dasharray="2,2"/>
+              <circle cx="14" cy="14" r="2.5" fill="currentColor"/>
+              <circle cx="50" cy="18" r="2.5" fill="currentColor"/>
+              <circle cx="46" cy="50" r="2.5" fill="currentColor"/>
+              <circle cx="18" cy="46" r="2.5" fill="currentColor"/>
+              <line x1="14" y1="14" x2="46" y2="50" stroke="currentColor" stroke-width="0.6" stroke-dasharray="1,2"/>
+            </svg>
+          </div>
+          <h3 class="calc-title">Network Least Squares</h3>
+          <div class="calc-nepali">न्यूनतम वर्ग समायोजन</div>
+          <p class="calc-desc">Rigorous least-squares adjustment of survey networks (angles + distances), variance–covariance and error ellipses — in development.</p>
+          <div class="calc-tags">
+            <span class="calc-tag">LSQ</span>
+            <span class="calc-tag">Error Ellipse</span>
+          </div>
+        </div>
+
+        <div class="calc-card coming">
+          <div class="calc-card-top"><div class="calc-num">VII</div><span class="calc-status coming">In Development</span></div>
           <div class="calc-glyph">
             <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
               <line x1="8" y1="50" x2="56" y2="50" stroke="currentColor" stroke-width="1.4"/>
@@ -6672,7 +6835,13 @@
 <div class="sidebar-item" onclick="showTab('levelling', this)">Levelling System</div>
 <div class="sidebar-item" onclick="showTab('totalstation', this)">Total Station</div>
 <div class="sidebar-item" onclick="showTab('traverse', this)">Traverse Computation</div>
+<div class="sidebar-item" onclick="showTab('traverseadj', this)">Traverse Adjustment (Gon)</div>
+<div class="sidebar-item" onclick="showTab('coordtrans2', this)">2-Point Coord Transform</div>
 <div class="sidebar-item" onclick="showTab('triangulation', this)">Triangulation</div>
+
+<div class="section-divider">Cadastral Geometry</div>
+<div class="sidebar-item" onclick="showTab('areacoord', this)">Area by Coordinates</div>
+<div class="sidebar-item" onclick="showTab('joincalc', this)">Bearing &amp; Distance (Join)</div>
 <div class="sidebar-item" onclick="showTab('trilateration', this)">Trilateration</div>
 
 <div class="section-divider">Coordinate Systems</div>
@@ -7292,6 +7461,160 @@ Optional: First line starts at given coordinates (E, N).
 <tr><td><strong>Transit</strong></td><td>−eL × (|Latᵢ|/Σ|Lat|)</td><td>−eD × (|Depᵢ|/Σ|Dep|)</td><td>Angles more accurate than distances</td></tr>
 <tr><td><strong>Crandall</strong></td><td colspan="2">Least squares; complex</td><td>Best precision</td></tr>
 </table>
+</div>
+
+<!-- ══════════ FULL TRAVERSE ADJUSTMENT (GON) — from Traverse_Computation.xlsx ══════════ -->
+<div id="traverseadj" class="calc-section">
+<h2>Traverse Adjustment &mdash; Gon (Full)</h2>
+<div class="info-box">
+Closed / link traverse run in the <strong>gradian (gon)</strong> system, exactly as worked in the field sheet:
+angular misclosure balanced by equal distribution, linear misclosure adjusted by the <strong>Bowditch
+(Compass) rule</strong>, and a parallel <strong>trigonometric height</strong> reduction from zenith angles.
+Reports closing error, perimeter, relative (linear) accuracy and angular accuracy.
+</div>
+<div class="formula">Forward bearing: B&#7522; = (B&#7522;&#8331;&#8321; + &alpha;&#7522; + 200ᵍ) mod 400ᵍ</div>
+<div class="formula">Departure ΔE = D·sin(B), &nbsp; Latitude ΔN = D·cos(B) &nbsp;(B in gon)</div>
+<div class="formula">Bowditch: c&#7488;&#7497;&#7508; = −e&#7508; · (D&#7522;/ΣD), &nbsp; c&#7488;&#7505;&#7515; = −e&#7505; · (D&#7522;/ΣD)</div>
+<div class="formula">Trig height: Δh = D / tan(Z) + Hᵢ − Hₜ &nbsp;(Z = zenith angle, gon)</div>
+
+<h3>Known Start</h3>
+<div class="row">
+<div class="input-group"><label>Start Easting E&#8320;</label><input type="number" id="taE0" step="any" value="356260.779"></div>
+<div class="input-group"><label>Start Northing N&#8320;</label><input type="number" id="taN0" step="any" value="3056518.283"></div>
+</div>
+<div class="row">
+<div class="input-group"><label>Start Height H&#8320; (m)</label><input type="number" id="taH0" step="any" value="1478.455"></div>
+<div class="input-group"><label>Initial fwd bearing (gon)</label><input type="number" id="taBrg" step="any" value="311.6718"></div>
+</div>
+
+<h3 style="margin-top:18px;">True (Theoretical) Values for Misclosure</h3>
+<div class="row">
+<div class="input-group"><label>Σ Angles true (gon)</label><input type="number" id="taTrueAng" step="any" value="2800"></div>
+<div class="input-group"><label>Σ Departure true (ΔE)</label><input type="number" id="taTrueDep" step="any" value="26.917"></div>
+</div>
+<div class="row">
+<div class="input-group"><label>Σ Latitude true (ΔN)</label><input type="number" id="taTrueLat" step="any" value="-4.991"></div>
+<div class="input-group"><label>Σ Δh true (m)</label><input type="number" id="taTrueDh" step="any" value="5.424"></div>
+</div>
+
+<div class="input-group"><label>Stations (one per line) &mdash; <span class="note">Name, ObservedAngle(gon), Distance(m), Zenith(gon), Hi, Ht</span><br>
+<span class="note">Distance/Zenith/Hi/Ht may be blank on the final closing station.</span></label>
+<textarea id="taData" rows="9" placeholder="B, 251.0887, 126.238, 99.515, 1.36, 2">B, 251.0887, 126.238, 99.515, 1.36, 2
+2001, 257.2863, 155.128, 92.3138, 1.355, 2
+2002, 70.1517, 91.275, 100.145, 1.355, 2
+2003, 240.0975, 105.735, 99.5188, 1.385, 2
+2004, 63.9258, 144.705, 105.0335, 1.51, 2
+2005, 160.3845, 134.436, 103.388, 1.39, 2
+2006, 197.3938, 160.417, 102.0675, 1.285, 2.2
+2007, 233.4329, 215.594, 100.3738, 1.46, 2
+2008, 141.4295, 157.177, 102.4362, 1.455, 2.2
+2009, 136.6058, 261.599, 97.4563, 1.364, 2.2
+2010, 92.7766, 158.839, 102.2325, 1.422, 2
+2011, 120.2174, 215.747, 99.0387, 1.45, 2
+2012, 314.7175, 79.301, 90.215, 1.45, 2
+2013, 171.2333, 96.585, 94.855, 1.41, 2
+2014, 135.83, 23.326, 104.52, 1.41, 2
+2015(A), 213.4358, , , , </textarea></div>
+<button class="btn" onclick="calcTraverseAdj()">Adjust Traverse (Full)</button>
+<div id="taResult"></div>
+</div>
+
+<!-- ══════════ 2-POINT COORDINATE TRANSFORMATION (GON) — from transformation_new.xlsx ══════════ -->
+<div id="coordtrans2" class="calc-section">
+<h2>2-Point Coordinate Transformation &mdash; Gon</h2>
+<div class="info-box">
+Rotates and translates a whole point cloud from a <strong>local / old datum</strong> to a
+<strong>known / new datum</strong> using two common control points — a <strong>Station</strong> and a
+<strong>Reference Object (backsight)</strong> measured in both systems. Bearings are computed in
+<strong>gon</strong>; the rotation angle is the difference of the two station-to-RO bearings, applied to
+every detail point with its original radial distance preserved. This is the post-setup transformation
+used after a resection/free-station total-station observation.
+</div>
+<div class="formula">B = atan2(ΔE, ΔN) · 200/π &nbsp;(+400ᵍ if ΔE &lt; 0)</div>
+<div class="formula">θ = B&#8345;&#8337;&#7584; − B&#8338;&#8343;&#8242; &nbsp;&nbsp; Bᶜ = (B + θ) mod 400ᵍ</div>
+<div class="formula">E′ = E&#8345;&#8347;&#8345;&#8345; + d·sin(Bᶜ), &nbsp; N′ = N&#8345;&#8347;&#8345;&#8345; + d·cos(Bᶜ)</div>
+
+<h3>Old (Local) Datum</h3>
+<div class="row">
+<div class="input-group"><label>Old Station E</label><input type="number" id="ctOsE" step="any" value="356358.406"></div>
+<div class="input-group"><label>Old Station N</label><input type="number" id="ctOsN" step="any" value="3056479.875"></div>
+<div class="input-group"><label>Old Station Z</label><input type="number" id="ctOsZ" step="any" value="1483.419"></div>
+</div>
+<div class="row">
+<div class="input-group"><label>Old RO E</label><input type="number" id="ctOrE" step="any" value="356363.996"></div>
+<div class="input-group"><label>Old RO N</label><input type="number" id="ctOrN" step="any" value="3056512.4"></div>
+<div class="input-group"><label>Old RO Z</label><input type="number" id="ctOrZ" step="any" value="1487.47"></div>
+</div>
+<h3 style="margin-top:18px;">New (Known) Datum</h3>
+<div class="row">
+<div class="input-group"><label>New Station E</label><input type="number" id="ctNsE" step="any" value="356363.996"></div>
+<div class="input-group"><label>New Station N</label><input type="number" id="ctNsN" step="any" value="3056479.875"></div>
+<div class="input-group"><label>New Station Z</label><input type="number" id="ctNsZ" step="any" value="1483.419"></div>
+</div>
+<div class="row">
+<div class="input-group"><label>New RO E</label><input type="number" id="ctNrE" step="any" value="356358.406"></div>
+<div class="input-group"><label>New RO N</label><input type="number" id="ctNrN" step="any" value="3056512.4"></div>
+<div class="input-group"><label>New RO Z</label><input type="number" id="ctNrZ" step="any" value="1487.47"></div>
+</div>
+
+<div class="input-group"><label>Detail points (one per line) &mdash; <span class="note">Label, E, N, Z</span></label>
+<textarea id="ctData" rows="7" placeholder="S8, 356381.571, 3056443.664, 1480.999">S2, 356363.996, 3056512.4, 1487.47
+S8, 356381.571, 3056443.664, 1480.999
+S7, 356371.9, 3056394.772, 1476.768
+S6, 356331.849, 3056408.58, 1473.301
+1, 356365.441, 3056516.205, 1488.278
+6, 356370.434, 3056466.023, 1482.435</textarea></div>
+<button class="btn" onclick="calcCoordTrans2()">Transform Points</button>
+<div id="ctResult"></div>
+</div>
+
+<!-- ══════════ AREA BY COORDINATES (SHOELACE) + NEPALI LAND UNITS ══════════ -->
+<div id="areacoord" class="calc-section">
+<h2>Area by Coordinates &mdash; Nepali Land Units</h2>
+<div class="info-box">
+Cadastral parcel area from boundary corner coordinates by the <strong>Shoelace (Surveyor's) formula</strong>,
+then converted into both the hill <strong>Ropani–Aana–Paisa–Daam</strong> and Terai
+<strong>Bigha–Kattha–Dhur</strong> systems. The polygon is auto-closed; clockwise or anticlockwise order
+both work (absolute area is reported). Perimeter and a scaled parcel plot are included.
+</div>
+<div class="formula">2A = | Σ (E&#7522;·N&#7522;&#8330;&#8321; − E&#7522;&#8330;&#8321;·N&#7522;) |</div>
+<div class="input-group"><label>Boundary corners in order (one per line) &mdash; <span class="note">E, N &nbsp;(or X, Y)</span></label>
+<textarea id="acData" rows="6" placeholder="356358.4, 3056479.9">356358.406, 3056479.875
+356381.571, 3056443.664
+356371.900, 3056394.772
+356331.849, 3056408.580
+356278.384, 3056532.064</textarea></div>
+<button class="btn" onclick="calcAreaCoord()">Compute Area</button>
+<div id="acResult"></div>
+<h3 style="margin-top:22px;">Nepali Land-Unit Reference</h3>
+<table>
+<tr><th>System</th><th>Sub-units</th><th>Metric</th></tr>
+<tr><td><strong>Ropani</strong></td><td>16 Aana = 64 Paisa = 256 Daam</td><td>508.72 m²</td></tr>
+<tr><td><strong>Aana</strong></td><td>4 Paisa = 16 Daam</td><td>31.80 m²</td></tr>
+<tr><td><strong>Bigha</strong></td><td>20 Kattha = 400 Dhur</td><td>6772.63 m²</td></tr>
+<tr><td><strong>Kattha</strong></td><td>20 Dhur</td><td>338.63 m²</td></tr>
+</table>
+</div>
+
+<!-- ══════════ BEARING & DISTANCE (JOIN / INVERSE) ══════════ -->
+<div id="joincalc" class="calc-section">
+<h2>Bearing &amp; Distance &mdash; Join (Inverse)</h2>
+<div class="info-box">
+The inverse / join computation: given two coordinate pairs, returns the horizontal
+<strong>distance</strong> and the <strong>whole-circle bearing</strong> from the first point to the second,
+reported in both <strong>gon</strong> and degrees-minutes-seconds, with the grid quadrant.
+</div>
+<div class="formula">d = √(ΔE² + ΔN²), &nbsp; B = atan2(ΔE, ΔN)</div>
+<div class="row">
+<div class="input-group"><label>From E&#8321;</label><input type="number" id="jnE1" step="any" placeholder="356358.406"></div>
+<div class="input-group"><label>From N&#8321;</label><input type="number" id="jnN1" step="any" placeholder="3056479.875"></div>
+</div>
+<div class="row">
+<div class="input-group"><label>To E&#8322;</label><input type="number" id="jnE2" step="any" placeholder="356381.571"></div>
+<div class="input-group"><label>To N&#8322;</label><input type="number" id="jnN2" step="any" placeholder="3056443.664"></div>
+</div>
+<button class="btn" onclick="calcJoin()">Compute Join</button>
+<div id="jnResult"></div>
 </div>
 
 <div id="triangulation" class="calc-section">
@@ -13073,6 +13396,262 @@ function calcTraverse() {
     </div>${table}`;
 }
 
+// ════════════ NEW GEOSPATIAL MODULES ════════════
+// Shared gon helpers (200ᵍ = π rad). Excel ATAN2(ΔN,ΔE) ≡ JS atan2(ΔE,ΔN).
+const GON = 200 / Math.PI;
+function bearingGon(dE, dN) {
+  let a = Math.atan2(dE, dN);
+  if (dE < 0) a += 2 * Math.PI;   // map to 0..2π (matches IF(E<Estn,2π+...))
+  return a * GON;
+}
+function gonToDMS(g) {            // gon → degrees, then D M S
+  const deg = g * 0.9;           // 400 gon = 360°
+  return formatDMS(deg);
+}
+function quadrant(dE, dN) {
+  if (dE >= 0 && dN >= 0) return 'NE';
+  if (dE >= 0 && dN < 0)  return 'SE';
+  if (dE < 0 && dN < 0)   return 'SW';
+  return 'NW';
+}
+// Build a lightweight SVG scatter/polygon plot for the dark console
+function vizPlot(title, series, opts) {
+  opts = opts || {};
+  const W = 560, H = 360, pad = 34;
+  let pts = [];
+  series.forEach(s => s.points.forEach(p => pts.push(p)));
+  if (!pts.length) return '';
+  let minE = Math.min(...pts.map(p => p.E)), maxE = Math.max(...pts.map(p => p.E));
+  let minN = Math.min(...pts.map(p => p.N)), maxN = Math.max(...pts.map(p => p.N));
+  let dE = maxE - minE || 1, dN = maxN - minN || 1;
+  const sc = Math.min((W - 2 * pad) / dE, (H - 2 * pad) / dN);
+  const ox = (W - sc * dE) / 2, oy = (H - sc * dN) / 2;
+  const X = e => ox + (e - minE) * sc;
+  const Y = n => H - (oy + (n - minN) * sc);   // flip so North is up
+  let g = '';
+  // faint grid
+  for (let i = 0; i <= 4; i++) {
+    const gx = pad + i * (W - 2 * pad) / 4, gy = pad + i * (H - 2 * pad) / 4;
+    g += `<line x1="${gx}" y1="${pad}" x2="${gx}" y2="${H - pad}" stroke="rgba(216,166,76,0.10)" stroke-width="0.6"/>`;
+    g += `<line x1="${pad}" y1="${gy}" x2="${W - pad}" y2="${gy}" stroke="rgba(216,166,76,0.10)" stroke-width="0.6"/>`;
+  }
+  series.forEach(s => {
+    if (s.polygon && s.points.length > 1) {
+      const d = s.points.map(p => `${X(p.E).toFixed(1)},${Y(p.N).toFixed(1)}`).join(' ');
+      g += `<polygon points="${d}" fill="${s.fill || 'none'}" stroke="${s.color}" stroke-width="1.4" ${s.dash ? `stroke-dasharray="4,3"` : ''}/>`;
+    } else if (s.line && s.points.length > 1) {
+      const d = s.points.map(p => `${X(p.E).toFixed(1)},${Y(p.N).toFixed(1)}`).join(' ');
+      g += `<polyline points="${d}" fill="none" stroke="${s.color}" stroke-width="1.3" ${s.dash ? `stroke-dasharray="4,3"` : ''}/>`;
+    }
+    s.points.forEach(p => {
+      g += `<circle cx="${X(p.E).toFixed(1)}" cy="${Y(p.N).toFixed(1)}" r="${s.r || 3}" fill="${s.color}"/>`;
+      if (p.label) g += `<text x="${(X(p.E) + 5).toFixed(1)}" y="${(Y(p.N) - 4).toFixed(1)}" font-size="8" fill="${s.color}">${p.label}</text>`;
+    });
+  });
+  // north arrow
+  g += `<g transform="translate(${W - 26},${pad + 8})"><line x1="0" y1="14" x2="0" y2="-6" stroke="var(--gold-soft)" stroke-width="1"/><polyline points="-3,-2 0,-7 3,-2" fill="none" stroke="var(--gold-soft)" stroke-width="1"/><text x="0" y="24" font-size="7" fill="var(--gold-soft)" text-anchor="middle">N</text></g>`;
+  let legend = '';
+  series.filter(s => s.name).forEach((s, i) => {
+    legend += `<g transform="translate(${pad},${pad + 4 + i * 12})"><rect width="8" height="8" fill="${s.color}"/><text x="12" y="7.5" font-size="8" fill="#cfc7b5">${s.name}</text></g>`;
+  });
+  return `<div class="calc-viz"><div class="calc-viz-title">${title}</div>
+    <svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg">${g}${legend}</svg></div>`;
+}
+function statGrid(stats) {
+  return `<div class="result-grid">${stats.map(s =>
+    `<div class="result-stat"><div class="rs-label">${s[0]}</div><div class="rs-val">${s[1]}</div></div>`).join('')}</div>`;
+}
+
+// ── 2-Point Coordinate Transformation (Gon) ──
+function calcCoordTrans2() {
+  const v = id => parseFloat(document.getElementById(id).value);
+  const oS = { E: v('ctOsE'), N: v('ctOsN'), Z: v('ctOsZ') };
+  const oR = { E: v('ctOrE'), N: v('ctOrN'), Z: v('ctOrZ') };
+  const nS = { E: v('ctNsE'), N: v('ctNsN'), Z: v('ctNsZ') };
+  const nR = { E: v('ctNrE'), N: v('ctNrN'), Z: v('ctNrZ') };
+  const out = document.getElementById('ctResult');
+  if ([oS, oR, nS, nR].some(p => isNaN(p.E) || isNaN(p.N))) {
+    out.innerHTML = '<div class="result error">Enter all four control points (E, N).</div>'; return;
+  }
+  const bOld = bearingGon(oR.E - oS.E, oR.N - oS.N);
+  const bNew = bearingGon(nR.E - nS.E, nR.N - nS.N);
+  const rot = bNew - bOld;
+  const rows = document.getElementById('ctData').value.trim().split('\n')
+    .map(l => l.split(',').map(s => s.trim())).filter(p => p.length >= 3 && p[1] !== '' && !isNaN(parseFloat(p[1])));
+  let table = '<div class="table-scroll"><table><tr><th>Pt</th><th>Brg (gon)</th><th>Dist (m)</th><th>Corr.Brg</th><th>E′</th><th>N′</th><th>Z′</th></tr>';
+  const oldPts = [{ E: oS.E, N: oS.N, label: 'Stn' }];
+  const newPts = [{ E: nS.E, N: nS.N, label: 'Stn' }];
+  rows.forEach(r => {
+    const label = r[0], E = parseFloat(r[1]), N = parseFloat(r[2]), Z = r[3] !== undefined && r[3] !== '' ? parseFloat(r[3]) : NaN;
+    const dE = E - oS.E, dN = N - oS.N;
+    const b = bearingGon(dE, dN);
+    const d = Math.hypot(dE, dN);
+    let bc = b + rot; if (bc > 400) bc -= 400; else if (bc < 0) bc += 400;
+    const nE = nS.E + d * Math.sin(bc * Math.PI / 200);
+    const nN = nS.N + d * Math.cos(bc * Math.PI / 200);
+    const nZ = isNaN(Z) ? NaN : (Z - nS.Z + nR.Z);
+    table += `<tr><td>${label}</td><td>${b.toFixed(4)}</td><td>${d.toFixed(3)}</td><td>${bc.toFixed(4)}</td><td>${nE.toFixed(3)}</td><td>${nN.toFixed(3)}</td><td>${isNaN(nZ) ? '—' : nZ.toFixed(3)}</td></tr>`;
+    oldPts.push({ E, N, label }); newPts.push({ E: nE, N: nN, label });
+  });
+  table += '</table></div>';
+  const viz = vizPlot('Old datum (dashed) → New datum (solid)', [
+    { points: oldPts, color: '#8aa6b8', line: true, dash: true, name: 'Old / local', r: 2.6 },
+    { points: newPts, color: '#dba843', line: true, name: 'New / known', r: 3 }
+  ]);
+  out.innerHTML = `<div class="result"><h4>✓ Transformation Parameters</h4>
+    ${statGrid([
+      ['Bearing Stn→RO (old)', bOld.toFixed(5) + ' ᵍ'],
+      ['Bearing Stn→RO (new)', bNew.toFixed(5) + ' ᵍ'],
+      ['Rotation θ', rot.toFixed(5) + ' ᵍ'],
+      ['Points transformed', rows.length]
+    ])}</div>${table}${viz}`;
+}
+
+// ── Full Traverse Adjustment (Gon) ──
+function calcTraverseAdj() {
+  const v = id => parseFloat(document.getElementById(id).value);
+  const E0 = v('taE0'), N0 = v('taN0'), H0 = v('taH0'), binit = v('taBrg');
+  const trueAng = v('taTrueAng'), trueDep = v('taTrueDep'), trueLat = v('taTrueLat'), trueDh = v('taTrueDh');
+  const out = document.getElementById('taResult');
+  const data = document.getElementById('taData').value.trim().split('\n')
+    .map(l => l.split(',').map(s => s.trim())).filter(p => p.length >= 2 && p[1] !== '' && !isNaN(parseFloat(p[1])));
+  if (data.length < 2) { out.innerHTML = '<div class="result error">Enter at least two stations.</div>'; return; }
+
+  const ang = data.map(d => parseFloat(d[1]));
+  const dist = data.map(d => (d[2] !== undefined && d[2] !== '') ? parseFloat(d[2]) : 0);
+  const zen = data.map(d => (d[3] !== undefined && d[3] !== '') ? parseFloat(d[3]) : NaN);
+  const hi = data.map(d => (d[4] !== undefined && d[4] !== '') ? parseFloat(d[4]) : NaN);
+  const ht = data.map(d => (d[5] !== undefined && d[5] !== '') ? parseFloat(d[5]) : NaN);
+
+  const N = ang.length;
+  const sumObs = ang.reduce((a, b) => a + b, 0);
+  const angCorr = -(sumObs - trueAng) / N;        // equal distribution
+
+  // bearings
+  const brg = []; let bprev = binit;
+  for (let i = 0; i < N; i++) {
+    let t = bprev + ang[i] + angCorr;
+    if (t >= 600) t -= 600; else if (t >= 200) t -= 200; else t += 200;
+    brg.push(t); bprev = t;
+  }
+  // departures & latitudes for legs that have a distance
+  const dep = [], lat = [], dh = [];
+  let perim = 0;
+  for (let i = 0; i < N; i++) {
+    if (dist[i] > 0) {
+      dep[i] = dist[i] * Math.sin(brg[i] * Math.PI / 200);
+      lat[i] = dist[i] * Math.cos(brg[i] * Math.PI / 200);
+      perim += dist[i];
+      dh[i] = (!isNaN(zen[i])) ? dist[i] / Math.tan(zen[i] * Math.PI / 200) + (hi[i] || 0) - (ht[i] || 0) : NaN;
+    } else { dep[i] = NaN; lat[i] = NaN; dh[i] = NaN; }
+  }
+  const sumDep = dep.filter(x => !isNaN(x)).reduce((a, b) => a + b, 0);
+  const sumLat = lat.filter(x => !isNaN(x)).reduce((a, b) => a + b, 0);
+  const sumDh = dh.filter(x => !isNaN(x)).reduce((a, b) => a + b, 0);
+  const eD = sumDep - trueDep, eL = sumLat - trueLat, eH = sumDh - trueDh;
+  const nDh = dh.filter(x => !isNaN(x)).length;
+
+  // adjust + accumulate coordinates / heights
+  let E = E0, Nn = N0, Hh = H0;
+  const coords = [{ E, N: Nn, label: data[0][0] }];
+  let table = '<div class="table-scroll"><table><tr><th>Stn</th><th>Corr ∠</th><th>Bearing</th><th>Dist</th><th>ΔE</th><th>ΔN</th><th>adjΔE</th><th>adjΔN</th><th>Δh</th><th>Easting</th><th>Northing</th><th>Height</th></tr>';
+  table += `<tr><td>${data[0][0]}</td><td>—</td><td>${binit.toFixed(4)}</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>${E.toFixed(3)}</td><td>${Nn.toFixed(3)}</td><td>${Hh.toFixed(3)}</td></tr>`;
+  for (let i = 0; i < N; i++) {
+    let adjE = '—', adjN = '—', dhc = '—';
+    if (dist[i] > 0) {
+      const cDep = dep[i] - eD * dist[i] / perim;
+      const cLat = lat[i] - eL * dist[i] / perim;
+      const cDh = isNaN(dh[i]) ? NaN : dh[i] - eH / nDh;
+      E += cDep; Nn += cLat; if (!isNaN(cDh)) Hh += cDh;
+      adjE = cDep.toFixed(4); adjN = cLat.toFixed(4); dhc = isNaN(cDh) ? '—' : cDh.toFixed(4);
+    }
+    table += `<tr><td>${data[i][0]}</td><td>${(ang[i] + angCorr).toFixed(4)}</td><td>${brg[i].toFixed(4)}</td>`
+      + `<td>${dist[i] > 0 ? dist[i].toFixed(3) : '—'}</td><td>${isNaN(dep[i]) ? '—' : dep[i].toFixed(4)}</td><td>${isNaN(lat[i]) ? '—' : lat[i].toFixed(4)}</td>`
+      + `<td>${adjE}</td><td>${adjN}</td><td>${dhc}</td><td>${E.toFixed(3)}</td><td>${Nn.toFixed(3)}</td><td>${Hh.toFixed(3)}</td></tr>`;
+    if (dist[i] > 0) coords.push({ E, N: Nn, label: data[i + 1] ? data[i + 1][0] : '' });
+  }
+  table += '</table></div>';
+
+  const closErr = Math.hypot(eD, eL);
+  const linAcc = closErr === 0 ? '∞' : '1 : ' + Math.round(perim / closErr).toLocaleString();
+  const angErrCcg = Math.abs(sumObs - trueAng) * 10000;
+  const angAcc = (angErrCcg / Math.sqrt(N)).toFixed(2);
+  const viz = vizPlot('Adjusted traverse (closed)', [
+    { points: coords, color: '#dba843', polygon: true, name: 'Station polygon', r: 3 }
+  ]);
+  out.innerHTML = `<div class="result"><h4>✓ Traverse Adjusted</h4>
+    ${statGrid([
+      ['Angular misclosure', (sumObs - trueAng).toFixed(5) + ' ᵍ'],
+      ['Departure error e_D', eD.toFixed(4)],
+      ['Latitude error e_L', eL.toFixed(4)],
+      ['Closing error', closErr.toFixed(4) + ' m'],
+      ['Perimeter', perim.toFixed(3) + ' m'],
+      ['Linear accuracy', linAcc],
+      ['Angular accuracy', angAcc + ' ccg/√N'],
+      ['Height misclosure', eH.toFixed(4) + ' m']
+    ])}</div>${table}${viz}`;
+}
+
+// ── Area by Coordinates (Shoelace) + Nepali land units ──
+function calcAreaCoord() {
+  const out = document.getElementById('acResult');
+  const pts = document.getElementById('acData').value.trim().split('\n')
+    .map(l => l.split(',').map(s => parseFloat(s.trim()))).filter(p => p.length >= 2 && !isNaN(p[0]) && !isNaN(p[1]))
+    .map(p => ({ E: p[0], N: p[1] }));
+  if (pts.length < 3) { out.innerHTML = '<div class="result error">Need at least 3 corners.</div>'; return; }
+  let twoA = 0, perim = 0;
+  for (let i = 0; i < pts.length; i++) {
+    const a = pts[i], b = pts[(i + 1) % pts.length];
+    twoA += a.E * b.N - b.E * a.N;
+    perim += Math.hypot(b.E - a.E, b.N - a.N);
+  }
+  const area = Math.abs(twoA) / 2;
+  // Nepali land units
+  const ROP = 508.72, AANA = ROP / 16, PAISA = ROP / 64, DAAM = ROP / 256;
+  const BIGHA = 6772.63, KATTHA = BIGHA / 20, DHUR = BIGHA / 400;
+  let rem = area;
+  const rop = Math.floor(rem / ROP); rem -= rop * ROP;
+  const aana = Math.floor(rem / AANA); rem -= aana * AANA;
+  const paisa = Math.floor(rem / PAISA); rem -= paisa * PAISA;
+  const daam = rem / DAAM;
+  let r2 = area;
+  const big = Math.floor(r2 / BIGHA); r2 -= big * BIGHA;
+  const kat = Math.floor(r2 / KATTHA); r2 -= kat * KATTHA;
+  const dhur = r2 / DHUR;
+  const viz = vizPlot('Parcel boundary', [
+    { points: pts.concat([pts[0]]), color: '#6b8e6f', polygon: true, fill: 'rgba(107,142,111,0.14)', name: 'Parcel', r: 3 }
+  ]);
+  out.innerHTML = `<div class="result"><h4>✓ Parcel Area</h4>
+    ${statGrid([
+      ['Area', area.toFixed(3) + ' m²'],
+      ['Perimeter', perim.toFixed(3) + ' m'],
+      ['Ropani–Aana–Paisa–Daam', `${rop}-${aana}-${paisa}-${daam.toFixed(2)}`],
+      ['Bigha–Kattha–Dhur', `${big}-${kat}-${dhur.toFixed(2)}`],
+      ['Ropani (decimal)', (area / ROP).toFixed(4)],
+      ['Sq. feet', (area / 0.092903).toFixed(1)]
+    ])}</div>${viz}`;
+}
+
+// ── Bearing & Distance (Join / Inverse) ──
+function calcJoin() {
+  const v = id => parseFloat(document.getElementById(id).value);
+  const E1 = v('jnE1'), N1 = v('jnN1'), E2 = v('jnE2'), N2 = v('jnN2');
+  const out = document.getElementById('jnResult');
+  if ([E1, N1, E2, N2].some(isNaN)) { out.innerHTML = '<div class="result error">Enter both coordinate pairs.</div>'; return; }
+  const dE = E2 - E1, dN = N2 - N1;
+  const d = Math.hypot(dE, dN);
+  const bg = bearingGon(dE, dN);
+  out.innerHTML = `<div class="result"><h4>✓ Join Computation</h4>
+    ${statGrid([
+      ['Distance', d.toFixed(4) + ' m'],
+      ['Bearing (gon)', bg.toFixed(5) + ' ᵍ'],
+      ['Bearing (DMS)', gonToDMS(bg)],
+      ['ΔE', dE.toFixed(3)],
+      ['ΔN', dN.toFixed(3)],
+      ['Quadrant', quadrant(dE, dN)]
+    ])}</div>`;
+}
+
 // ========== TRIANGULATION ==========
 function calcSineLaw() {
   const A = parseFloat(document.getElementById('snA').value);
@@ -16846,6 +17425,74 @@ updateNote();recalc();
   else lpInit();
 })();
 
+</script>
+<!-- ════════════════════════════════════════════════════════════
+     STATUTORY DISCLAIMER MODAL · महत्त्वपूर्ण सूचना
+     Shown before opening the live cadastral / valuation instruments.
+════════════════════════════════════════════════════════════ -->
+<div id="calc-disclaimer" role="dialog" aria-modal="true" aria-labelledby="cd-title">
+  <div class="cd-card">
+    <button class="cd-close" onclick="closeCalcDisclaimer()" aria-label="Close">&times;</button>
+    <div class="cd-seal">
+      <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <circle cx="24" cy="24" r="21" stroke="currentColor" stroke-width="1.5"/>
+        <circle cx="24" cy="24" r="16.5" stroke="currentColor" stroke-width="0.8" stroke-dasharray="2,2"/>
+        <path d="M24 13v15" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/>
+        <circle cx="24" cy="34" r="1.8" fill="currentColor"/>
+      </svg>
+      <span class="cd-eyebrow">Notice · सूचना · Reference Use Only</span>
+    </div>
+    <h2 class="cd-title" id="cd-title">महत्त्वपूर्ण सूचना</h2>
+    <div class="cd-body">
+      <p>यो क्यालकुलेटर <strong>“बागमती प्रदेश आर्थिक ऐन, २०८२”</strong> तथा <strong>“जग्गा तथा घरजग्गा निःसर्गमा पूँजीगत लाभकर सम्बन्धी निर्देशिका, २०७२ (पहिलो संशोधन, २०७६)”</strong> मा आधारित रही सन्दर्भ तथा जानकारीमूलक प्रयोजनका लागि तयार गरिएको हो।</p>
+      <p>गणनामा प्रयोग गरिएका दर, मूल्याङ्कन, शुल्क तथा प्राप्त नतिजाहरू सम्बन्धित कागजात, आधिकारिक स्रोत वा कार्यालयसँग एकपटक रुजु गर्नुहोस्। कुनै पनि आर्थिक, कानुनी वा प्रशासनिक प्रयोजनका लागि प्रयोग गर्नु अघि प्राप्त रकम तथा शुल्क म्यानुअल रूपमा पुनः गणना गरी पुष्टि गर्न अनुरोध गरिन्छ।</p>
+      <div class="cd-warn">यस क्यालकुलेटरबाट प्राप्त नतिजालाई अन्तिम आधिकारिक निर्णयको आधार मान्नु हुँदैन।</div>
+    </div>
+    <div class="cd-actions">
+      <button class="cd-btn cd-btn-cancel" onclick="closeCalcDisclaimer()">रद्द गर्नुहोस् · Cancel</button>
+      <button class="cd-btn cd-btn-accept" id="cd-accept">बुझेँ, अगाडि बढ्नुहोस् · I Understand</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ── Statutory disclaimer interceptor for live cadastral instruments ── */
+(function () {
+  var pendingURL = null;
+  var modal = document.getElementById('calc-disclaimer');
+  var acceptBtn = document.getElementById('cd-accept');
+
+  window.openCalcDisclaimer = function (evt, url) {
+    if (evt) { evt.preventDefault(); evt.stopPropagation(); }
+    pendingURL = url;
+    modal.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  };
+  window.closeCalcDisclaimer = function () {
+    modal.classList.remove('open');
+    document.body.style.overflow = '';
+    pendingURL = null;
+  };
+  acceptBtn.addEventListener('click', function () {
+    var url = pendingURL;
+    window.closeCalcDisclaimer();
+    if (url) window.open(url, '_blank', 'noopener');
+  });
+  modal.addEventListener('click', function (e) {
+    if (e.target === modal) window.closeCalcDisclaimer();
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && modal.classList.contains('open')) window.closeCalcDisclaimer();
+  });
+})();
+
+/* ── Jump from an instrument card into a specific calculator module ── */
+function openCalcModule(id) {
+  var app = document.getElementById('toe-app');
+  if (app) app.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  var item = document.querySelector('.sidebar-item[onclick*="\'' + id + '\'"]');
+  if (typeof showTab === 'function') showTab(id, item || null);
+}
 </script>
 </body>
 </html>
