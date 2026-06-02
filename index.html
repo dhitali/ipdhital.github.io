@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Ishwor Prasad Dhital · Geomatics Engineer · Digital Cadastre · Kathmandu</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%2314202e'/%3E%3Ccircle cx='32' cy='32' r='20' fill='none' stroke='%23b8821e' stroke-width='2'/%3E%3Cpolygon points='32,11 36,32 32,53 28,32' fill='%239e2727'/%3E%3Cpolygon points='11,32 32,28 53,32 32,36' fill='%23dba843'/%3E%3Ccircle cx='32' cy='32' r='2.6' fill='%23f1e8d2'/%3E%3C/svg%3E">
 <meta name="description" content="Editorial geospatial atlas of Ishwor Prasad Dhital — Geomatics Engineer specialising in GIS, Remote Sensing, UAV photogrammetry, Nepal cadastral systems, and statutory land valuation.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -103,7 +104,7 @@
   .topnav {
     position: sticky;
     top: 0;
-    z-index: 100;
+    z-index: 1000;
     background: rgba(247, 243, 236, 0.92);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
@@ -122,70 +123,96 @@
   .topnav-inner {
     max-width: 1280px;
     margin: 0 auto;
-    padding: 0.9rem 2rem;
+    padding: 0.7rem clamp(1rem, 3vw, 2rem);
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    gap: 1.5rem;
+    gap: clamp(0.8rem, 2vw, 1.5rem);
     position: relative;
     z-index: 2;
   }
 
-  .topnav-brand {
-    font-family: 'Cormorant Garamond', serif;
-    font-weight: 600;
-    font-size: 1.05rem;
-    color: var(--ink);
-    letter-spacing: 0.02em;
-    text-decoration: none;
-    display: flex;
-    align-items: baseline;
-    gap: 0.6rem;
-  }
-  .topnav-brand .nep {
-    font-family: 'Tiro Devanagari Sanskrit', serif;
-    color: var(--crimson);
-    font-size: 0.95rem;
-    opacity: 0.85;
-  }
-  .topnav-brand .coords {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.58rem;
-    letter-spacing: 0.18em;
-    color: var(--gold);
-    margin-left: 0.6rem;
-  }
-
-  .topnav-links {
-    display: flex;
-    gap: 1.5rem;
+  /* --- Triple-dot menu button (top-left) --- */
+  .nav-toggle {
+    flex: 0 0 auto;
+    width: 42px;
+    height: 42px;
+    display: inline-flex;
+    flex-direction: column;
     align-items: center;
+    justify-content: center;
+    gap: 4px;
+    background: var(--paper-cream);
+    border: 1px solid var(--paper-deep);
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.2s, border-color 0.2s, transform 0.2s;
+    -webkit-tap-highlight-color: transparent;
   }
-  .topnav-link {
+  .nav-toggle:hover { background: var(--ink); border-color: var(--ink); }
+  .nav-toggle .nav-dot {
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--ink);
+    transition: background 0.2s, transform 0.3s, opacity 0.3s;
+  }
+  .nav-toggle:hover .nav-dot { background: var(--gold-soft); }
+  .nav-toggle:focus-visible { outline: 2px solid var(--crimson); outline-offset: 2px; }
+  /* Morph triple-dot → X when open */
+  body.nav-open .nav-toggle { background: var(--ink); border-color: var(--ink); }
+  body.nav-open .nav-toggle .nav-dot { background: var(--gold-soft); }
+  body.nav-open .nav-toggle .nav-dot:nth-child(1) { transform: translateY(8px) scale(1.3); }
+  body.nav-open .nav-toggle .nav-dot:nth-child(2) { opacity: 0; transform: scale(0); }
+  body.nav-open .nav-toggle .nav-dot:nth-child(3) { transform: translateY(-8px) scale(1.3); }
+
+  /* --- Rotating geomatics quote ticker (replaces the old name brand) --- */
+  .topnav-quote {
+    flex: 1 1 auto;
+    min-width: 0;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+  }
+  .topnav-quote .tq-mark {
+    flex: 0 0 auto;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    line-height: 1;
+    color: var(--gold);
+    opacity: 0.7;
+    transform: translateY(0.18em);
+  }
+  .topnav-quote .tq-body { min-width: 0; }
+  .topnav-quote .tq-text {
+    display: block;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: clamp(0.82rem, 1.6vw, 1.02rem);
+    line-height: 1.25;
+    color: var(--ink);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+  .topnav-quote .tq-author {
+    display: block;
     font-family: 'JetBrains Mono', monospace;
-    font-size: 0.68rem;
+    font-size: 0.52rem;
     letter-spacing: 0.18em;
     text-transform: uppercase;
-    color: var(--ink-soft);
-    text-decoration: none;
-    transition: color 0.2s;
-    position: relative;
+    color: var(--gold);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    transition: opacity 0.5s ease;
   }
-  .topnav-link:hover { color: var(--crimson); }
-  .topnav-link::after {
-    content: "";
-    position: absolute;
-    left: 0; bottom: -4px;
-    width: 0;
-    height: 1px;
-    background: var(--crimson);
-    transition: width 0.25s ease;
-  }
-  .topnav-link:hover::after { width: 100%; }
-  .topnav-link.active { color: var(--crimson); }
-  .topnav-link.active::after { width: 100%; }
+  .topnav-quote.is-swapping .tq-text { opacity: 0; transform: translateY(-4px); }
+  .topnav-quote.is-swapping .tq-author { opacity: 0; }
 
   .topnav-cta {
+    flex: 0 0 auto;
     padding: 0.5rem 1rem;
     background: var(--ink);
     color: var(--paper);
@@ -197,11 +224,131 @@
     text-decoration: none;
     border-radius: 2px;
     transition: all 0.2s;
+    white-space: nowrap;
   }
   .topnav-cta:hover { background: var(--crimson); border-color: var(--crimson); }
 
-  @media (max-width: 980px) { .topnav-links .topnav-link:not(:nth-child(-n+3)) { display: none; } }
-  @media (max-width: 720px) { .topnav-links .topnav-link { display: none; } }
+  /* --- Slide-down navigation menu (topics live here) --- */
+  .nav-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(20, 32, 46, 0.42);
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    z-index: 998;
+  }
+  body.nav-open .nav-backdrop { opacity: 1; visibility: visible; }
+
+  .nav-menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: min(340px, 86vw);
+    height: 100%;
+    max-height: 100%;
+    background: #0e1a26;
+    background-image:
+      linear-gradient(180deg, rgba(20,32,46,0.0), rgba(0,0,0,0.25)),
+      linear-gradient(to right, rgba(241,232,210,0.05) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(241,232,210,0.05) 1px, transparent 1px);
+    background-size: auto, 32px 32px, 32px 32px;
+    border-right: 1px solid rgba(184,130,30,0.4);
+    box-shadow: 24px 0 60px -30px rgba(0,0,0,0.7);
+    transform: translateX(-105%);
+    transition: transform 0.4s cubic-bezier(0.7, 0, 0.2, 1);
+    z-index: 999;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-top: var(--nav-h, 62px);
+  }
+  body.nav-open .nav-menu { transform: translateX(0); }
+
+  .nav-menu-head {
+    padding: 1.6rem 1.6rem 1.3rem;
+    border-bottom: 1px solid rgba(184,130,30,0.28);
+  }
+  .nav-menu-brand {
+    display: block;
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 600;
+    font-size: 1.25rem;
+    color: #f3eee2;
+    letter-spacing: 0.01em;
+    text-decoration: none;
+  }
+  .nav-menu-brand .nep {
+    display: block;
+    font-family: 'Tiro Devanagari Sanskrit', serif;
+    color: var(--gold-soft);
+    font-size: 1rem;
+    margin-top: 0.15rem;
+    font-weight: 400;
+  }
+  .nav-menu-coords {
+    display: block;
+    margin-top: 0.6rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.58rem;
+    letter-spacing: 0.18em;
+    color: var(--gold);
+  }
+
+  .nav-menu-links {
+    padding: 0.8rem 0.9rem 1.4rem;
+    display: flex;
+    flex-direction: column;
+  }
+  .nav-menu-link {
+    display: flex;
+    align-items: baseline;
+    gap: 0.7rem;
+    padding: 0.7rem 0.7rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.74rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: #cdd6df;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background 0.18s, color 0.18s, padding-left 0.18s;
+  }
+  .nav-menu-link .nml-idx {
+    font-size: 0.56rem;
+    color: var(--gold);
+    opacity: 0.8;
+    min-width: 1.4em;
+  }
+  .nav-menu-link:hover,
+  .nav-menu-link:focus-visible {
+    background: rgba(184,130,30,0.14);
+    color: var(--paper);
+    padding-left: 1.1rem;
+    outline: none;
+  }
+  .nav-menu-link.cta-style {
+    margin-top: 0.5rem;
+    background: var(--crimson);
+    color: #fff5ea;
+    justify-content: center;
+  }
+  .nav-menu-link.cta-style .nml-idx { color: var(--gold-soft); }
+  .nav-menu-link.cta-style:hover { background: var(--crimson-deep); padding-left: 0.7rem; }
+
+  .nav-menu-foot {
+    margin-top: auto;
+    padding: 1.1rem 1.6rem 1.6rem;
+    border-top: 1px solid rgba(184,130,30,0.28);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.55rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #8b9aa6;
+  }
 
   /* ─────────── HERO ─────────── */
   .hero {
@@ -413,6 +560,27 @@
     display: block;
     position: relative;
     z-index: 2;
+  }
+
+  /* Graceful monogram shown only if the photo cannot load (e.g. blocked
+     in-app browsers / ad-blockers) — never a broken-image icon. */
+  .hero-portrait-frame.show-mono::after,
+  .about-portrait-frame.show-mono::after {
+    content: "इ";
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Cormorant Garamond', serif; font-weight: 600;
+    color: var(--gold-soft); line-height: 1; position: relative; z-index: 2;
+    background:
+      repeating-linear-gradient(45deg, transparent 0 8px, rgba(176,141,58,0.06) 8px 9px),
+      linear-gradient(150deg, var(--ink-mid) 0%, var(--ink) 100%);
+    box-shadow: inset 0 0 0 1px rgba(176,141,58,0.30);
+  }
+  .hero-portrait-frame.show-mono::after {
+    width: clamp(240px, 30vw, 360px); aspect-ratio: 4 / 5;
+    font-size: clamp(96px, 13vw, 160px);
+  }
+  .about-portrait-frame.show-mono::after {
+    position: absolute; inset: 14px; font-size: clamp(110px, 16vw, 200px);
   }
 
   .hero-portrait-tag {
@@ -4612,15 +4780,9 @@
      MOBILE RESPONSIVE — overrides for narrow viewports
   ═══════════════════════════════════════════════════════════════ */
 
-  /* Topnav: scrollable horizontally on small screens */
+  /* Topnav: flex bar adapts on its own; keep children from overflowing */
   @media (max-width: 1100px) {
-    .topnav {
-      overflow-x: auto;
-      flex-wrap: nowrap;
-      -webkit-overflow-scrolling: touch;
-      scrollbar-width: thin;
-    }
-    .topnav-link, .topnav-cta {
+    .topnav-cta {
       flex-shrink: 0;
       white-space: nowrap;
     }
@@ -4628,16 +4790,10 @@
 
   @media (max-width: 900px) {
     html { font-size: 15.5px; }
-    .topnav {
+    .topnav-inner {
       gap: 0.7rem !important;
       padding: 0.55rem 0.9rem !important;
     }
-    .topnav-brand {
-      font-size: 0.78rem !important;
-    }
-    .topnav-brand .topnav-nepali,
-    .topnav-coord { display: none !important; }
-    .topnav-link { font-size: 0.65rem !important; }
     .section-inner, .container {
       padding-left: 1rem !important;
       padding-right: 1rem !important;
@@ -4949,32 +5105,177 @@
 <script defer src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
         integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
         crossorigin=""></script>
+<style id="fx-loader-critical">
+  #fx-loader{
+    position:fixed; inset:0; z-index:4000; background:#08090C;
+    display:flex; align-items:center; justify-content:center;
+    animation:fxLoaderOut .85s cubic-bezier(.7,0,.2,1) 1.65s forwards;
+  }
+  .fx-loader-inner{ text-align:center; font-family:'JetBrains Mono',monospace; }
+  .fx-reticle{
+    width:62px; height:62px; margin:0 auto 1.3rem; position:relative;
+    border:1px solid rgba(216,166,76,.45); border-radius:50%;
+    animation:fxReticleSpin 2.6s linear infinite;
+  }
+  .fx-reticle::before,.fx-reticle::after{ content:""; position:absolute; background:rgba(216,166,76,.55); }
+  .fx-reticle::before{ left:50%; top:7%; bottom:7%; width:1px; transform:translateX(-50%); }
+  .fx-reticle::after{ top:50%; left:7%; right:7%; height:1px; transform:translateY(-50%); }
+  .fx-reticle-dot{
+    position:absolute; inset:0; margin:auto; width:6px; height:6px; border-radius:50%;
+    background:#d8504a; box-shadow:0 0 12px #d8504a; animation:fxDotPulse 1.4s ease-in-out infinite;
+  }
+  .fx-loader-label{ font-size:.58rem; letter-spacing:.34em; text-transform:uppercase; color:#8b9aa6; }
+  .fx-loader-coords{ margin-top:.5rem; font-size:.8rem; letter-spacing:.14em; color:#edc879; min-height:1.1em; }
+  @keyframes fxReticleSpin{ to{ transform:rotate(360deg); } }
+  @keyframes fxDotPulse{ 0%,100%{ transform:scale(1); opacity:1; } 50%{ transform:scale(1.5); opacity:.6; } }
+  @keyframes fxLoaderOut{ to{ opacity:0; visibility:hidden; transform:translateY(-14px); } }
+  @media (prefers-reduced-motion:reduce){
+    #fx-loader{ animation:none; opacity:0; visibility:hidden; }
+    .fx-reticle,.fx-reticle-dot{ animation:none; }
+  }
+</style>
 </head>
 <body>
+
+<!-- ═══════════════ INTRO LOADER (GPS fix) — self-removes ═══════════════ -->
+<div id="fx-loader" role="status" aria-label="Loading">
+  <div class="fx-loader-inner">
+    <div class="fx-reticle"><span class="fx-reticle-dot"></span></div>
+    <div class="fx-loader-label">Establishing Position</div>
+    <div class="fx-loader-coords" id="fxLoaderCoords">27.7172° N&nbsp;&nbsp;·&nbsp;&nbsp;85.3240° E</div>
+  </div>
+</div>
 
 <!-- ════════════════════════ TOP NAV ════════════════════════ -->
 <nav class="topnav">
   <div class="topnav-inner">
-    <a href="#top" class="topnav-brand">
-      Ishwor Prasad Dhital
-      <span class="nep">ईश्वर प्रसाद धिताल</span>
-      <span class="coords">27.7172°N · 85.3240°E</span>
-    </a>
-    <div class="topnav-links">
-      <a href="#atlas" class="topnav-link">Atlas</a>
-      <a href="#about" class="topnav-link">About</a>
-      <a href="#rs-lab" class="topnav-link">Remote Sensing</a>
-      <a href="#cadastre" class="topnav-link">Cadastre</a>
-      <a href="#survey-units" class="topnav-link">Survey&nbsp;Units</a>
-      <a href="#lab" class="topnav-link">Lab</a>
-      <a href="#earth-live" class="topnav-link">Earth&nbsp;Live</a>
-      <a href="#uav" class="topnav-link">UAV</a>
-      <a href="#dashboard" class="topnav-link">Dashboard</a>
-      <a href="#personal-goals" class="topnav-link">Goals</a>
-      <a href="#contact" class="topnav-cta">Contact</a>
+    <!-- Triple-dot menu button (top-left) -->
+    <button class="nav-toggle" id="navToggle" aria-label="Open navigation menu"
+            aria-expanded="false" aria-controls="navMenu">
+      <span class="nav-dot"></span>
+      <span class="nav-dot"></span>
+      <span class="nav-dot"></span>
+    </button>
+
+    <!-- Rotating geospatial quote (replaces the old name brand) -->
+    <div class="topnav-quote" id="topnavQuote" aria-live="polite">
+      <span class="tq-mark">“</span>
+      <span class="tq-body">
+        <span class="tq-text" id="tqText">The map is not the territory.</span>
+        <span class="tq-author" id="tqAuthor">Alfred Korzybski</span>
+      </span>
     </div>
+
+    <a href="#contact" class="topnav-cta">Contact</a>
   </div>
 </nav>
+
+<!-- Slide-out navigation drawer (kept OUTSIDE .topnav so its
+     backdrop-filter doesn't trap these position:fixed elements) -->
+<div class="nav-backdrop" id="navBackdrop"></div>
+<aside class="nav-menu" id="navMenu" aria-hidden="true" aria-label="Site sections">
+  <div class="nav-menu-head">
+    <a href="#top" class="nav-menu-brand" data-nav-close>
+      Ishwor Prasad Dhital
+      <span class="nep">ईश्वर प्रसाद धिताल</span>
+    </a>
+    <span class="nav-menu-coords">27.7172°N · 85.3240°E · Kathmandu</span>
+  </div>
+  <nav class="nav-menu-links">
+    <a href="#atlas"          class="nav-menu-link" data-nav-close><span class="nml-idx">01</span> Atlas</a>
+    <a href="#about"          class="nav-menu-link" data-nav-close><span class="nml-idx">02</span> About</a>
+    <a href="#rs-lab"         class="nav-menu-link" data-nav-close><span class="nml-idx">03</span> Remote Sensing</a>
+    <a href="#cadastre"       class="nav-menu-link" data-nav-close><span class="nml-idx">04</span> Cadastre</a>
+    <a href="#survey-units"   class="nav-menu-link" data-nav-close><span class="nml-idx">05</span> Survey Units</a>
+    <a href="#lab"            class="nav-menu-link" data-nav-close><span class="nml-idx">06</span> Lab</a>
+    <a href="#earth-live"     class="nav-menu-link" data-nav-close><span class="nml-idx">07</span> Earth Live</a>
+    <a href="#uav"            class="nav-menu-link" data-nav-close><span class="nml-idx">08</span> UAV</a>
+    <a href="#dashboard"      class="nav-menu-link" data-nav-close><span class="nml-idx">09</span> Dashboard</a>
+    <a href="#personal-goals" class="nav-menu-link" data-nav-close><span class="nml-idx">10</span> Goals</a>
+    <a href="#contact"        class="nav-menu-link cta-style" data-nav-close><span class="nml-idx">→</span> Contact</a>
+  </nav>
+  <div class="nav-menu-foot">
+    Geomatics &amp; Earth Observation<br>© 2026 · WGS84 / Everest 1830
+  </div>
+</aside>
+
+<script>
+/* ── Top-nav: triple-dot drawer toggle + rotating geospatial micro-quotes ── */
+(function () {
+  var body = document.body;
+  var toggle = document.getElementById('navToggle');
+  var menu = document.getElementById('navMenu');
+  var backdrop = document.getElementById('navBackdrop');
+  var topnav = document.querySelector('.topnav');
+
+  function setNavH() {
+    if (topnav) document.documentElement.style.setProperty('--nav-h', topnav.offsetHeight + 'px');
+  }
+  setNavH();
+  window.addEventListener('resize', setNavH);
+  window.addEventListener('orientationchange', setNavH);
+
+  function openMenu() {
+    setNavH();
+    body.classList.add('nav-open');
+    toggle.setAttribute('aria-expanded', 'true');
+    menu.setAttribute('aria-hidden', 'false');
+    body.style.overflow = 'hidden';
+  }
+  function closeMenu() {
+    body.classList.remove('nav-open');
+    toggle.setAttribute('aria-expanded', 'false');
+    menu.setAttribute('aria-hidden', 'true');
+    body.style.overflow = '';
+  }
+  if (toggle && menu) {
+    toggle.addEventListener('click', function () {
+      body.classList.contains('nav-open') ? closeMenu() : openMenu();
+    });
+    if (backdrop) backdrop.addEventListener('click', closeMenu);
+    menu.querySelectorAll('[data-nav-close]').forEach(function (el) {
+      el.addEventListener('click', closeMenu);
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && body.classList.contains('nav-open')) closeMenu();
+    });
+  }
+
+  /* ── Rotating micro-quotes (geomatics / geospatial) ── */
+  var QUOTES = [
+    { t: 'The map is not the territory.', a: 'Alfred Korzybski' },
+    { t: 'Near things are more related than distant things.', a: "Tobler\u2019s First Law" },
+    { t: 'Geography is destiny.', a: 'Proverb' },
+    { t: 'Without geography, you\u2019re nowhere.', a: 'Jimmy Buffett' },
+    { t: 'Everything happens somewhere.', a: 'GIS adage' },
+    { t: 'To measure the Earth is to begin to know it.', a: 'Geodesy' },
+    { t: 'Every pixel remembers a place.', a: 'Remote Sensing' },
+    { t: 'Coordinates turn the world into an address.', a: 'Geomatics' },
+    { t: 'Light, returned, becomes terrain.', a: 'LiDAR' },
+    { t: 'A point, a line, a polygon \u2014 the grammar of the Earth.', a: 'Spatial Data' },
+    { t: 'Survey twice, register once.', a: 'Cadastre' },
+    { t: 'Maps are how the Earth tells its story.', a: 'Cartography' },
+    { t: 'Where is always the first question.', a: 'Spatial Analysis' },
+    { t: 'From orbit, every field has a history.', a: 'Earth Observation' },
+    { t: 'Latitude and longitude: the planet\u2019s memory.', a: 'Geodesy' }
+  ];
+  var qText = document.getElementById('tqText');
+  var qAuthor = document.getElementById('tqAuthor');
+  var qWrap = document.getElementById('topnavQuote');
+  if (qText && qAuthor && qWrap) {
+    var i = Math.floor(Math.random() * QUOTES.length);
+    function showQuote(n) { qText.textContent = QUOTES[n].t; qAuthor.textContent = QUOTES[n].a; }
+    showQuote(i);
+    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    setInterval(function () {
+      i = (i + 1) % QUOTES.length;
+      if (reduce) { showQuote(i); setNavH(); return; }
+      qWrap.classList.add('is-swapping');
+      setTimeout(function () { showQuote(i); qWrap.classList.remove('is-swapping'); setNavH(); }, 500);
+    }, 6500);
+  }
+})();
+</script>
 
 <!-- ════════════════════════ HERO ════════════════════════ -->
 <section class="hero" id="top" style="padding: 0;">
@@ -5089,10 +5390,13 @@
     </div>
 
     <div class="hero-portrait-wrap">
-      <div class="hero-portrait-frame">
-        <img src="https://lh3.googleusercontent.com/d/1qj0NheBuaYCfD8wWID62SzgYBm9BSVA8=w800"
-             onerror="this.onerror=null; this.src='https://drive.google.com/thumbnail?id=1qj0NheBuaYCfD8wWID62SzgYBm9BSVA8&sz=w800';"
+      <div class="hero-portrait-frame" data-portrait>
+        <img src="assets/ishwor-portrait.jpg"
+             data-srcs="assets/ishwor-portrait.jpg|https://lh3.googleusercontent.com/d/1qj0NheBuaYCfD8wWID62SzgYBm9BSVA8=w800|https://drive.google.com/thumbnail?id=1qj0NheBuaYCfD8wWID62SzgYBm9BSVA8&sz=w800"
+             data-idx="0"
+             onerror="portraitFallback(this)"
              alt="Portrait of Ishwor Prasad Dhital"
+             loading="eager"
              referrerpolicy="no-referrer"
              class="hero-portrait">
       </div>
@@ -5221,15 +5525,18 @@
 
       <!-- Portrait + meta column -->
       <aside class="about-portrait-col reveal">
-        <figure class="about-portrait-frame">
+        <figure class="about-portrait-frame" data-portrait>
           <span class="apf-corner apf-tl"></span>
           <span class="apf-corner apf-tr"></span>
           <span class="apf-corner apf-bl"></span>
           <span class="apf-corner apf-br"></span>
           <img class="about-portrait-img"
-               src="https://lh3.googleusercontent.com/d/1qj0NheBuaYCfD8wWID62SzgYBm9BSVA8=w900"
-               onerror="this.onerror=null; this.src='https://drive.google.com/thumbnail?id=1qj0NheBuaYCfD8wWID62SzgYBm9BSVA8&sz=w900';"
+               src="assets/ishwor-portrait.jpg"
+               data-srcs="assets/ishwor-portrait.jpg|https://lh3.googleusercontent.com/d/1qj0NheBuaYCfD8wWID62SzgYBm9BSVA8=w900|https://drive.google.com/thumbnail?id=1qj0NheBuaYCfD8wWID62SzgYBm9BSVA8&sz=w900"
+               data-idx="0"
+               onerror="portraitFallback(this)"
                alt="Portrait of Ishwor Prasad Dhital"
+               loading="lazy"
                referrerpolicy="no-referrer">
           <figcaption class="about-portrait-cap">
             <span class="apc-name">Ishwor Prasad Dhital</span>
@@ -11169,7 +11476,7 @@ Calculates great-circle distance between two points on Earth's surface using lat
 
   // ----- Active nav highlighting -----
   var sections = document.querySelectorAll('section[id]');
-  var navLinks = document.querySelectorAll('.topnav-link');
+  var navLinks = document.querySelectorAll('.nav-menu-link');
   if ('IntersectionObserver' in window && sections.length && navLinks.length) {
     var navIo = new IntersectionObserver(function(entries){
       entries.forEach(function(e){
@@ -17493,6 +17800,259 @@ function openCalcModule(id) {
   var item = document.querySelector('.sidebar-item[onclick*="\'' + id + '\'"]');
   if (typeof showTab === 'function') showTab(id, item || null);
 }
+
+/* ── Portrait loader: walk same-origin → Drive fallbacks, then show an
+   elegant monogram if every source is blocked (Messenger / Facebook /
+   Instagram in-app browsers, ad-blockers, etc.) instead of a broken icon. ── */
+function portraitFallback(img) {
+  try {
+    var list = (img.getAttribute('data-srcs') || '').split('|').filter(Boolean);
+    var i = parseInt(img.getAttribute('data-idx') || '0', 10);
+    if (i < list.length - 1) {
+      i++;
+      img.setAttribute('data-idx', String(i));
+      img.src = list[i];
+      return;
+    }
+  } catch (e) {}
+  img.onerror = null;
+  img.style.display = 'none';
+  var frame = img.closest('[data-portrait]');
+  if (frame) frame.classList.add('show-mono');
+}
+</script>
+
+<!-- ════════════════════════════════════════════════════════════
+     RESPONSIVE ENHANCEMENT LAYER · device-agnostic safety net
+     Loaded last so it wins specificity ties. Keeps every section
+     usable from ultra-wide desktops down to small phones.
+════════════════════════════════════════════════════════════ -->
+<style id="responsive-enhancements">
+  /* Never allow sideways scroll of the whole page */
+  html, body { max-width: 100%; overflow-x: hidden; }
+
+  /* Media + embeds must never break the viewport */
+  img, svg, video, canvas, iframe, .leaflet-container {
+    max-width: 100%;
+  }
+  img, video { height: auto; }
+
+  /* Wide tables and code/pre scroll inside their box instead of the page */
+  table { max-width: 100%; }
+  .table-scroll, .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  pre { max-width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+
+  /* Long unbroken strings (coords, hashes, emails) wrap gracefully */
+  .hero-blurb, p, li, .hero-meta-val, .nav-menu-coords { overflow-wrap: anywhere; }
+
+  /* ── Tablet & down ── */
+  @media (max-width: 900px) {
+    section { padding: 3.4rem 1.4rem; }
+    .section-head { margin-bottom: 2.2rem; }
+  }
+
+  /* ── Large phone ── */
+  @media (max-width: 640px) {
+    section { padding: 2.8rem 1.1rem; }
+    .topnav-inner { padding: 0.6rem 0.9rem; gap: 0.7rem; }
+    .topnav-quote .tq-author { display: none; }   /* keep the line tidy */
+    .hero-inner { padding: 2.4rem 1.2rem 3rem; gap: 2rem; }
+    .hero-meta { gap: 1.1rem 1.6rem; }
+    .hero-portrait { width: min(220px, 64vw); }
+  }
+
+  /* ── Small phone ── */
+  @media (max-width: 480px) {
+    section { padding: 2.4rem 0.95rem; }
+    .topnav-cta { display: none; }                /* Contact still lives in the drawer */
+    .topnav-quote .tq-mark { font-size: 1.25rem; }
+    .topnav-quote .tq-text { font-size: 0.84rem; white-space: normal;
+      display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+    .nav-toggle { width: 38px; height: 38px; }
+    .hero-meta { flex-direction: column; align-items: flex-start; gap: 0.9rem; }
+    .nav-menu { width: min(320px, 92vw); }
+  }
+
+  /* ── Very small phone ── */
+  @media (max-width: 360px) {
+    .topnav-quote .tq-text { -webkit-line-clamp: 1; white-space: nowrap; }
+    section { padding: 2rem 0.8rem; }
+  }
+
+  /* Comfortable tap targets on touch devices */
+  @media (pointer: coarse) {
+    .nav-menu-link { padding-top: 0.85rem; padding-bottom: 0.85rem; }
+  }
+
+  /* Current-section highlight in the drawer (driven by scrollspy) */
+  .nav-menu-link.active {
+    background: rgba(184,130,30,0.18);
+    color: var(--paper);
+    box-shadow: inset 2px 0 0 var(--gold-soft);
+  }
+  .nav-menu-link.active .nml-idx { color: var(--gold-soft); opacity: 1; }
+  .nav-menu-link.cta-style.active { box-shadow: none; }
+
+  /* Respect users who dislike motion */
+  @media (prefers-reduced-motion: reduce) {
+    .nav-menu { transition: none; }
+    .topnav-quote .tq-text, .topnav-quote .tq-author { transition: none; }
+    .nav-toggle .nav-dot { transition: background 0.2s; }
+  }
+</style>
+
+<!-- ════════════════════════════════════════════════════════════
+     MOTION POLISH LAYER · progressive enhancement, reduced-motion safe
+     Adds: scroll-progress meridian, survey-reticle cursor,
+     staggered section reveals, intro-loader logic, press feedback.
+     Nothing here is required for content to be visible.
+════════════════════════════════════════════════════════════ -->
+<style id="motion-polish">
+  /* Scroll-progress meridian */
+  .fx-progress{
+    position:fixed; top:0; left:0; height:2px; width:0; z-index:1001;
+    background:linear-gradient(90deg, var(--gold), var(--crimson));
+    box-shadow:0 0 10px rgba(216,166,76,.45);
+    transition:width .08s linear; pointer-events:none;
+  }
+
+  /* Survey-reticle cursor follower (fine pointers only) */
+  .fx-cursor{
+    position:fixed; top:0; left:0; width:32px; height:32px;
+    margin:-16px 0 0 -16px; border:1px solid rgba(216,166,76,.5);
+    border-radius:50%; pointer-events:none; z-index:3000; opacity:0;
+    transition:opacity .3s ease, width .22s ease, height .22s ease,
+               margin .22s ease, border-color .22s ease, background .22s ease;
+  }
+  .fx-cursor::before,.fx-cursor::after{ content:""; position:absolute; background:rgba(216,166,76,.65); }
+  .fx-cursor::before{ left:50%; top:-7px; bottom:-7px; width:1px; transform:translateX(-50%); }
+  .fx-cursor::after{ top:50%; left:-7px; right:-7px; height:1px; transform:translateY(-50%); }
+  .fx-cursor.fx-hot{
+    width:50px; height:50px; margin:-25px 0 0 -25px;
+    border-color:var(--crimson); background:rgba(216,80,74,.06);
+  }
+  @media (hover:none),(pointer:coarse){ .fx-cursor{ display:none !important; } }
+
+  /* Staggered scroll reveals (only active once JS confirms support) */
+  html.fx-ready .fx-up{
+    opacity:0; transform:translateY(26px);
+    transition:opacity .7s cubic-bezier(.2,.7,.2,1), transform .7s cubic-bezier(.2,.7,.2,1);
+    will-change:opacity, transform;
+  }
+  html.fx-ready .fx-up.fx-in{ opacity:1; transform:none; }
+
+  /* Tactile press feedback on key controls */
+  .topnav-cta:active, .nav-menu-link:active{ transform:translateY(1px); }
+
+  @media (prefers-reduced-motion: reduce){
+    .fx-progress, .fx-cursor{ display:none !important; }
+    html.fx-ready .fx-up{ opacity:1 !important; transform:none !important; transition:none !important; }
+  }
+</style>
+
+<script>
+/* ── Motion polish: loader, progress meridian, reticle cursor, reveals ── */
+(function () {
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---- Intro loader (once per session) ---- */
+  (function () {
+    var loader = document.getElementById('fx-loader');
+    if (!loader) return;
+    var remove = function () { if (loader && loader.parentNode) loader.parentNode.removeChild(loader); };
+    var seen = false;
+    try { seen = sessionStorage.getItem('fx-seen') === '1'; } catch (e) {}
+    if (seen || reduce) { remove(); return; }
+    try { sessionStorage.setItem('fx-seen', '1'); } catch (e) {}
+
+    // Type out the coordinate read-out for a "fixing position" feel
+    var coords = document.getElementById('fxLoaderCoords');
+    if (coords) {
+      var full = '27.7172\u00B0 N \u00B7 85.3240\u00B0 E', n = 0;
+      coords.textContent = '';
+      var typer = setInterval(function () {
+        n++; coords.textContent = full.slice(0, n);
+        if (n >= full.length) clearInterval(typer);
+      }, 38);
+    }
+    loader.addEventListener('animationend', remove);
+    setTimeout(remove, 3200); // hard failsafe
+  })();
+
+  /* ---- Scroll-progress meridian ---- */
+  if (!reduce) {
+    var prog = document.createElement('div');
+    prog.className = 'fx-progress';
+    document.body.appendChild(prog);
+    var updateProg = function () {
+      var d = document.documentElement;
+      var max = d.scrollHeight - d.clientHeight;
+      prog.style.width = (max > 0 ? (d.scrollTop / max) * 100 : 0) + '%';
+    };
+    window.addEventListener('scroll', updateProg, { passive: true });
+    window.addEventListener('resize', updateProg);
+    updateProg();
+  }
+
+  /* ---- Survey-reticle cursor follower ---- */
+  var fine = window.matchMedia && window.matchMedia('(hover:hover) and (pointer:fine)').matches;
+  if (fine && !reduce) {
+    var cur = document.createElement('div');
+    cur.className = 'fx-cursor';
+    document.body.appendChild(cur);
+    var cx = window.innerWidth / 2, cy = window.innerHeight / 2, tx = cx, ty = cy;
+    document.addEventListener('mousemove', function (e) {
+      tx = e.clientX; ty = e.clientY; cur.style.opacity = '1';
+    }, { passive: true });
+    document.addEventListener('mouseleave', function () { cur.style.opacity = '0'; });
+    var hot = 'a,button,input,select,textarea,label,[role="button"],.calc-card,.nav-toggle';
+    document.addEventListener('mouseover', function (e) {
+      if (e.target.closest && e.target.closest(hot)) cur.classList.add('fx-hot');
+    });
+    document.addEventListener('mouseout', function (e) {
+      if (e.target.closest && e.target.closest(hot)) cur.classList.remove('fx-hot');
+    });
+    (function loop() {
+      cx += (tx - cx) * 0.18; cy += (ty - cy) * 0.18;
+      cur.style.transform = 'translate(' + cx + 'px,' + cy + 'px)';
+      requestAnimationFrame(loop);
+    })();
+  }
+
+  /* ---- Staggered scroll reveals ---- */
+  if ('IntersectionObserver' in window && !reduce) {
+    document.documentElement.classList.add('fx-ready');
+    var sel = '.section-head, .calc-card, .dash-card, .uav-meta-card, blockquote, figure, table';
+    var groups = [];
+    var byParent = function (p) {
+      for (var i = 0; i < groups.length; i++) if (groups[i].p === p) return groups[i];
+      var g = { p: p, items: [] }; groups.push(g); return g;
+    };
+    [].forEach.call(document.querySelectorAll(sel), function (el) {
+      if (el.offsetParent === null) return;            // skip hidden (tabs, etc.)
+      if (el.classList.contains('reveal')) return;     // leave existing system alone
+      el.classList.add('fx-up');
+      byParent(el.parentNode).items.push(el);
+    });
+    groups.forEach(function (g) {
+      g.items.forEach(function (el, i) {
+        el.style.transitionDelay = Math.min(i * 0.08, 0.4) + 's';
+      });
+    });
+    var ro = new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add('fx-in'); ro.unobserve(e.target); }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -8% 0px' });
+    [].forEach.call(document.querySelectorAll('.fx-up'), function (el) { ro.observe(el); });
+    // Failsafe: never leave anything stuck hidden
+    setTimeout(function () {
+      [].forEach.call(document.querySelectorAll('.fx-up:not(.fx-in)'), function (el) {
+        el.classList.add('fx-in');
+      });
+    }, 4500);
+  }
+})();
 </script>
 </body>
 </html>
